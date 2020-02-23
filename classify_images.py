@@ -29,21 +29,24 @@ from classifier import classifier
 #       results_dic dictionary that is passed into the function is a mutable 
 #       data type so no return is needed.
 # 
-def classify_images(in_arg.dir, results_dic, in_arg.arch):
+def classify_images(images_dir, results_dic, model):
     
-    for i in results_dic: 
-        index1 =  classifier(str(images_dir+i),model)
-        print(index1)
+    for i in results_dic.keys(): 
+        index1 = classifier(str(images_dir+i),model)
+
+        output_temp = index1.lower().strip().split(", ")
+
         
-        output_temp = index1.strip(" ").split(",")
-       
-        
-        if results_dic[i] in output_temp:
+        if results_dic[i][0] in output_temp:
             index2 = 1
+
         else:
             index2 = 0 
+
         
-        results_dic[i]=[results_dic[i],index1,index2]
+        
+        results_dic[i].append(index1.lower().strip())
+        results_dic[i].append(index2)
     
     """
     Creates classifier labels with classifier function, compares pet labels to 

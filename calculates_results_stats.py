@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 # */AIPND-revision/intropyproject-classify-pet-images/calculates_results_stats.py
 #                                                                             
-# PROGRAMMER:
-# DATE CREATED:                                  
+# PROGRAMMER: Maximilian Mandl
+# DATE CREATED: 21.02.2020                                 
 # REVISED DATE: 
 # PURPOSE: Create a function calculates_results_stats that calculates the 
 #          statistics of the results of the programrun using the classifier's model 
@@ -70,4 +70,63 @@ def calculates_results_stats(results_dic):
     """        
     # Replace None with the results_stats_dic dictionary that you created with 
     # this function 
-    return None
+    
+    results_stats_dic = {}
+    
+    results_stats_dic['n_images'] = 0                 #number of images
+    results_stats_dic['n_dogs_img'] = 0                   #number of dog images
+    results_stats_dic['n_notdogs_img'] = 0                #number of NON-dog images
+    results_stats_dic['n_match - number'] = 0             #of matches between pet & classifier labels
+    results_stats_dic['n_correct_dogs'] = 0              #number of correctly classified dog images
+    results_stats_dic['n_correct_notdogs'] = 0           #number of correctly classified NON-dog images
+    results_stats_dic['n_correct_breed'] = 0             #number of correctly classified dog breeds
+    results_stats_dic['n_match_label'] = 0 
+    
+    for i in results_dic.keys():
+        
+        results_stats_dic['n_images'] += 1    #number of images; len() would work too but for reasons of symmetry
+        
+        if results_dic[i][3] == 1:        
+            results_stats_dic['n_dogs_img'] += 1 #number of dog images
+        else:
+            results_stats_dic['n_notdogs_img'] += 1                #number of NON-dog images
+        
+        if results_dic[i][2] == 1:
+            results_stats_dic['n_match - number'] += 1               #of matches between pet & classifier labels
+        
+        if results_dic[i][3] == 1 and results_dic[i][4] == 1:      
+            results_stats_dic['n_correct_dogs'] += 1                 #number of correctly classified dog images
+        
+        if  results_dic[i][3] == 0 and results_dic[i][4] == 0 :    #number of correctly classified NON-dog images
+            results_stats_dic['n_correct_notdogs'] += 1   
+        
+        if  results_dic[i][3] == 1 and results_dic[i][2] == 1:  #number of correctly classified dog breed images
+            results_stats_dic['n_correct_breed'] += 1      
+        
+        if  results_dic[i][2] == 1:     
+            results_stats_dic['n_match_label'] += 1
+       
+    for i in results_stats_dic.keys():
+        print("key:{} and value:{}".format(i,results_stats_dic[i]))
+    
+    
+    if results_stats_dic['n_dogs_img'] !=0 :
+        results_stats_dic['pct_correct_dogs'] = 100 * results_stats_dic['n_correct_dogs'] /                                                         results_stats_dic['n_dogs_img']              #percentage of correctly classified dogs
+        results_stats_dic['pct_correct_breed'] =  100 * results_stats_dic['n_correct_breed'] /                                                 results_stats_dic['n_dogs_img']                       #percentage of correct matches
+               
+    else:
+        results_stats_dic['pct_correct_dogs']  = 999999            #percentage of correctly classified dogs
+        results_stats_dic['pct_correct_breed'] = 999999  
+
+    
+    if results_stats_dic['n_notdogs_img'] != 0:
+        results_stats_dic['pct_correct_notdogs'] = 100 * results_stats_dic['n_correct_notdogs'] /                                                   results_stats_dic['n_notdogs_img']                    #percentage of correctly classified NON-dogs
+    else:
+        results_stats_dic['pct_correct_notdogs'] =  999999        #percentage of correctly classified NON-dogs
+    
+    if results_stats_dic['n_images'] !=0 :
+        results_stats_dic['pct_correct_label'] = 100 * results_stats_dic['n_match_label'] /                                                         results_stats_dic['n_images']    
+    else:
+        results_stats_dic['pct_correct_label'] = 999999
+    
+    return results_stats_dic

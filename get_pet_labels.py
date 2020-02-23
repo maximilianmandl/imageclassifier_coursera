@@ -18,7 +18,7 @@
 ##
 # Imports python modules
 from os import listdir
-from check_images import check_creating_pet_image_labels as check
+#from check_images import check_creating_pet_image_labels as check
 
 # TODO 2: Define get_pet_labels function below please be certain to replace None
 #       in the return statement with results_dic dictionary that you create 
@@ -39,13 +39,15 @@ def get_pet_labels(image_dir):
                 temp_name_out.append(j)
                     
         results_dic[i] = [str(" ".join(temp_name_out))]
+        print(i)
+        print(results_dic[i])
         
  #                   temp_name_out = temp_name_out.append(j)
  #               
  #       results_dic[i] = str(temp_name_out)
         
-    for i in results_dic:
-        print("key is {} and value is {}".format(i, results_dic[i]))
+ #   for i in results_dic:
+ #       print("key is {} and value is {}".format(i, results_dic[i]))
     
     """
     Creates a dictionary of pet labels (results_dic) based upon the filenames 
@@ -68,6 +70,5 @@ def get_pet_labels(image_dir):
     return results_dic
 
 
-if __name__ == "__main__":
-    check(get_pet_labels("pet_images/"))
+
     

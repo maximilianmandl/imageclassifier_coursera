@@ -28,9 +28,9 @@ def get_input_args():
     
     parser = argparse.ArgumentParser(description='Get input variables for Dog Classification')
     parser.add_argument('--dir', dest='dir', action='store',
-                    default='pet_images',
+                    default='pet_images/',
                     help='folder with pet_images')
-    parser.add_argument('--arch', dest='arch', action='store',default=['vgg'],
+    parser.add_argument('--arch', dest='arch', action='store',default='vgg',
                     help='model; choose between vgg, , and ')
     parser.add_argument('--dogfile', dest='dogfile', action='store',
                     default='dognames.txt',
@@ -65,4 +65,5 @@ def get_input_args():
     return parser.parse_args()
 
 if __name__ == "__main__":
-    get_input_args()
+    x = get_input_args()
+    print(x.dogfile)

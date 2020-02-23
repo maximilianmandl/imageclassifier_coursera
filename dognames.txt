@@ -57,7 +57,7 @@ curly-coated retriever
 golden retriever
 labrador retriever
 chesapeake bay retriever
-german shorthaired pointer
+shorthaired pointer
 vizsla, hungarian pointer
 english setter
 irish setter, red setter

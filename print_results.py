@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 # */AIPND-revision/intropyproject-classify-pet-images/print_results.py
 #                                                                             
-# PROGRAMMER: 
-# DATE CREATED:
+# PROGRAMMER: Maximilian Mandl
+# DATE CREATED: 22.02.2020
 # REVISED DATE: 
 # PURPOSE: Create a function print_results that prints the results statistics
 #          from the results statistics dictionary (results_stats_dic). It 
@@ -62,5 +62,23 @@ def print_results(results_dic, results_stats_dic, model,
     Returns:
            None - simply printing results.
     """    
-    None
+    print("***************\n****Summary****\n***************")
+    print("Model used in this classification: {}".format(model))
+    print("Number of Images: {}\nNumber of Dog Images: {}\nNumber of 'Not-a' Dog Images:{}\n".format(results_stats_dic['n_images'],results_stats_dic['n_dogs_img'],results_stats_dic['n_notdogs_img']))
+    print("% Correct Dogs: {}\n% Correct Breed: {}\n% Correct 'Not-a' Dog: {}\n% Correct classification regardless of species: {}".format(results_stats_dic['pct_correct_dogs'],results_stats_dic['pct_correct_breed'],results_stats_dic['pct_correct_notdogs'],results_stats_dic['pct_correct_label']))
+
+    if print_incorrect_dogs and results_stats_dic['pct_correct_dogs'] != 100 and results_stats_dic['pct_correct_notdogs'] != 100:
+        for i in results_dic.keys():
+            if sum(results_dic[i][3:]) == 1:
+                print("The image ({}) was not correctly labeled ({})".format(i,results_dic[i][1]))
+     
+    
+    if print_incorrect_breed and results_stats_dic['pct_correct_breed'] != 100:
+        for i in results_dic.keys():
+            if results_dic[i][3] == 1 and results_dic[i][4] == 1 and results_dic[i][2] == 0:
+                print("This dog's breed ({}) was falsly labeled as {}".format(results_dic[i][0],results_dic[i][1]))
+    
+    
+    
+    return None
                 
